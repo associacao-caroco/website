@@ -373,17 +373,6 @@ h3 {
   border-radius: 50%;
   filter: grayscale(1) contrast(1.04);
 }
-.portrait.initials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 1px solid var(--rule);
-  color: var(--ink-quiet);
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  filter: none;
-}
 .person-name {
   margin: 0;
   font-size: 1.06rem;

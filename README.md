@@ -31,6 +31,7 @@ public/
     caroco-mark.png     logo
     oliveiras.jpg       photo, olive trees regrowing after fire
     gardunha.jpg        photo, geodesic marker on the Gardunha
+    team-*.jpg          portraits for the team section on /orgaos-sociais
     site.css            all styling
     site.js             PT/EN language toggle
 ```
@@ -54,6 +55,12 @@ edit both languages together, or one of them silently goes stale.
 design, so the links exist in the served HTML rather than being injected by JavaScript.
 Changing the nav means editing all eight files. Only the `aria-current="page"` attribute
 differs between them: it sits on the tab matching the current page.
+
+**Team portraits.** `/orgaos-sociais` lists the governing bodies and then a profile
+per member. Portraits are square JPEGs, roughly 500 to 760 px, displayed at 108 px in a
+circle and rendered grayscale by CSS, so colour originals are fine. Keep them square, or
+the circle crops unevenly. Alexandra Belo and Vitor Mingacho share one entry, as in the
+source material.
 
 **Legal footer.** Every page carries the association's legal details (name, NIPC, CAE,
 registered office, contact email). Google for Nonprofits requires the organisation
