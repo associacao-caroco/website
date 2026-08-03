@@ -1,0 +1,14 @@
+{
+  // Static site for caroco.pt. No Worker script, assets only.
+  // The name MUST stay old-waterfall-5b2c: that is the existing Worker that
+  // already owns the caroco.pt custom domain. Renaming it would create a
+  // second Worker and leave the live domain pointing at the old one.
+  "name": "old-waterfall-5b2c",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": "./public",
+    // /missao resolves to missao.html, and unknown paths get 404.html.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
