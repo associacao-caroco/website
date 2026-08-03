@@ -348,6 +348,67 @@ h3 {
 }
 .roles dd { margin: 0; }
 
+/* Team */
+.people {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+  width: 100%;
+}
+.people > li {
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  column-gap: 1.7rem;
+  align-items: start;
+  text-align: left;
+}
+.portrait {
+  display: block;
+  width: 108px;
+  height: 108px;
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: 50%;
+  filter: grayscale(1) contrast(1.04);
+}
+.portrait.initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--rule);
+  color: var(--ink-quiet);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  filter: none;
+}
+.person-name {
+  margin: 0;
+  font-size: 1.06rem;
+  font-weight: 400;
+}
+.person-role {
+  margin: 0.3rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+  line-height: 1.5;
+}
+.person-bio {
+  margin: 0.75rem 0 0;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.person-link {
+  margin: 0.5rem 0 0;
+  font-size: 0.84rem;
+  font-weight: 300;
+}
+
 figure {
   margin: 0 0 4rem;
   width: 100%;
@@ -527,6 +588,8 @@ footer {
   .ledger dl, .roles { grid-template-columns: 1fr; row-gap: 0.2rem; }
   .ledger dt, .roles dt { padding-top: 0.7rem; }
   .ledger dt:first-of-type, .roles dt:first-of-type { padding-top: 0; }
+  .people > li { grid-template-columns: 1fr; row-gap: 1rem; justify-items: start; }
+  .people { gap: 3rem; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
