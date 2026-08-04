@@ -57,6 +57,18 @@ ALLOWED_ORIGINS = {
 # link is not one of these: it only reaches a third party if the visitor clicks it.
 LOADING_TAGS = r"link|script|img|source|iframe|video|audio|embed|object"
 
+# Nothing on this site needs a 300 KB image. The realistic way one arrives is
+# straight off a phone, where a portrait meant for a 108 px circle weighs 4 MB,
+# and nobody notices because it looks identical in the browser.
+IMAGE_BUDGET = 300 * 1024
+
+# Portraits are displayed in a 108 px circle, so 216 covers a 2x screen and
+# anything beyond that is bytes no visitor can see. The eight files were once as
+# large as 760 px, which is where two thirds of the weight of /orgaos-sociais went.
+# The short side is what matters: object-fit crops the long one.
+PORTRAIT_MIN = 216
+PORTRAIT_MAX = 400
+
 # U+2012 figure dash, U+2013 en dash, U+2014 em dash, U+2015 horizontal bar, plus the HTML
 # entity spellings of the two that matter. Written as escapes so that this file, which
 # enforces the rule, does not itself contain the characters it rejects.
@@ -545,6 +557,101 @@ def check_no_third_party(report):
             )
 
 
+def image_size(path):
+    """Width and height straight out of the file header, so there is no image
+    library to install. Returns None for a format not handled here."""
+    data = path.read_bytes()
+
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        # IHDR is always the first chunk, and its width and height are the first
+        # two big endian 32 bit values of its payload.
+        return int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
+
+    if data[:2] == b"\xff\xd8":
+        # Walk the marker segments to the start of frame, which is the only place
+        # a JPEG records its dimensions. SOF0 through SOF15, skipping the four
+        # that are not frame headers.
+        i = 2
+        while i + 9 < len(data):
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker = data[i + 1]
+            if marker in (0xD8, 0x01) or 0xD0 <= marker <= 0xD7:
+                i += 2
+                continue
+            length = int.from_bytes(data[i + 2:i + 4], "big")
+            if 0xC0 <= marker <= 0xCF and marker not in (0xC4, 0xC8, 0xCC):
+                return (int.from_bytes(data[i + 7:i + 9], "big"),
+                        int.from_bytes(data[i + 5:i + 7], "big"))
+            i += 2 + length
+    return None
+
+
+def check_images(report):
+    """Three things a browser cannot tell you are wrong, because the page looks
+    right either way: an image far larger than the box it is drawn in, a portrait
+    too small to survive a 2x screen, and an img with no width and height, which
+    makes the page jump as it loads."""
+    for path in sorted(PUBLIC.rglob("*")):
+        if path.suffix.lower() not in (".jpg", ".jpeg", ".png", ".gif", ".webp"):
+            continue
+        size = path.stat().st_size
+        if size > IMAGE_BUDGET:
+            rel = path.relative_to(ROOT)
+            report.fail(
+                str(rel),
+                f"esta imagem tem {size // 1024} KB, acima do limite de "
+                f"{IMAGE_BUDGET // 1024} KB. Reduza-a ao tamanho a que é mostrada.",
+                f"this image is {size // 1024} KB, over the {IMAGE_BUDGET // 1024} KB "
+                "budget. Resize it to the size it is actually displayed at.",
+            )
+
+    for name, text in pages():
+        where = f"public/{name}"
+        for tag in re.findall(r"<img\b[^>]*>", text, re.I):
+            src = re.search(r'src="([^"]+)"', tag)
+            has_w = re.search(r'\bwidth="', tag)
+            has_h = re.search(r'\bheight="', tag)
+            label = src.group(1) if src else tag[:60]
+
+            if not (has_w and has_h):
+                report.fail(
+                    where,
+                    f"o <img> de {label} não tem width e height, por isso a página "
+                    "salta enquanto carrega. Ponha as dimensões a que é mostrado.",
+                    f"the <img> for {label} has no width and height, so the page jumps "
+                    "as it loads. Add the dimensions it is displayed at.",
+                )
+
+            if not src or 'class="portrait"' not in tag:
+                continue
+
+            target = PUBLIC / src.group(1).lstrip("/")
+            if not target.is_file():
+                continue  # check_links already reports a missing file
+            size = image_size(target)
+            if size is None:
+                continue
+            short = min(size)
+            if short < PORTRAIT_MIN:
+                report.fail(
+                    where,
+                    f"{label} tem {size[0]}x{size[1]}, e o lado curto ({short} px) é "
+                    f"menor que {PORTRAIT_MIN} px, por isso fica desfocado num ecrã 2x.",
+                    f"{label} is {size[0]}x{size[1]}, and its short side ({short} px) is "
+                    f"under {PORTRAIT_MIN} px, so it looks blurry on a 2x screen.",
+                )
+            elif short > PORTRAIT_MAX:
+                report.fail(
+                    where,
+                    f"{label} tem {size[0]}x{size[1]}, e o lado curto ({short} px) passa "
+                    f"{PORTRAIT_MAX} px. É mostrado num círculo de 108 px: reduza-o.",
+                    f"{label} is {size[0]}x{size[1]}, and its short side ({short} px) is "
+                    f"over {PORTRAIT_MAX} px. It is shown in a 108 px circle: resize it.",
+                )
+
+
 # ---------------------------------------------------------------- entry point
 
 
@@ -557,6 +664,7 @@ CHECKS = [
     ("sitemap", check_sitemap),
     ("fontes / fonts", check_fonts),
     ("nada de terceiros / no third parties", check_no_third_party),
+    ("imagens / images", check_images),
 ]
 
 

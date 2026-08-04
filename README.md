@@ -101,10 +101,20 @@ Changing the nav means editing all eight files. Only the `aria-current="page"` a
 differs between them: it sits on the tab matching the current page.
 
 **Team portraits.** `/orgaos-sociais` lists the governing bodies and then a profile
-per member. Portraits are square JPEGs, roughly 500 to 760 px, displayed at 108 px in a
-circle and rendered grayscale by CSS, so colour originals are fine. Keep them square, or
-the circle crops unevenly. Alexandra Belo and Vitor Mingacho share one entry, as in the
-source material.
+per member. Portraits are grayscale JPEGs with a 260 px short side, displayed at 108 px in
+a circle. Alexandra Belo and Vitor Mingacho share one entry, as in the source material.
+
+The short side is what matters, because `object-fit: cover` crops the long one. Six of the
+eight are square; Ana Santos and the Belo/Mingacho entry are 2:3, and CSS frames them with
+`object-position: center 22%`. Cropping those two square would re-frame a photograph of a
+named person, which is not a decision to make from a stylesheet, so they stay 2:3.
+`scripts/check` requires a short side between 216 px (sharp on a 2x screen) and 400 px, and
+rejects any image in `public/` over 300 KB. The eight portraits were once up to 760 px and
+accounted for two thirds of the weight of that page.
+
+Portraits are stored already grayscale rather than converted on the fly. The CSS
+`filter: grayscale(1)` stays anyway: it is idempotent on a grey image, and it keeps the
+design intact if someone later drops in a colour photograph.
 
 **Fonts.** Inter and Poppins are served from `public/assets/fonts/`, not from
 `fonts.googleapis.com`. Two reasons. Requesting a stylesheet from Google sends every
