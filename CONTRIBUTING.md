@@ -17,9 +17,12 @@ Tudo pelo site do GitHub, no navegador:
 4. Escreva o pedido. Use o modelo em [`pedidos/MODELO.md`](pedidos/MODELO.md) como guia.
    Diga em que página, o que deve mudar, e o texto novo se já o tiver. Português ou
    inglês, tanto faz: o site é bilingue e a tradução é feita depois.
-5. Em baixo, escolha **Create a new branch for this commit and start a pull request** e
-   clique em **Propose new file**.
-6. Na página seguinte, clique em **Create pull request**.
+5. Em baixo, clique em **Propose new file**. Se o GitHub avisar que vai criar uma cópia
+   (fork) do repositório na sua conta, aceite: é normal e é assim que funciona para quem
+   não tem permissão de escrita.
+6. Na página seguinte, clique em **Create pull request**, e outra vez para confirmar.
+   Deixe a opção **Allow edits by maintainers** marcada, é o que permite aplicar as
+   alterações no seu pedido.
 
 Está feito. O pedido fica registado como pull request e recebe resposta aí.
 
@@ -58,9 +61,12 @@ All of this happens on the GitHub website, in your browser:
 4. Write the request, using [`pedidos/MODELO.md`](pedidos/MODELO.md) as a guide. Say
    which page, what should change, and the new text if you already have it. Portuguese or
    English is fine: the site is bilingual and translation happens later.
-5. At the bottom, choose **Create a new branch for this commit and start a pull request**
-   and click **Propose new file**.
-6. On the next screen, click **Create pull request**.
+5. At the bottom, click **Propose new file**. If GitHub warns that it will create a copy
+   (a fork) of the repository under your account, accept it: that is normal for anyone
+   without write access.
+6. On the next screen, click **Create pull request**, then again to confirm. Leave
+   **Allow edits by maintainers** ticked, that is what lets the changes be applied to your
+   request.
 
 That is all. The request now exists as a pull request and gets answered there.
 

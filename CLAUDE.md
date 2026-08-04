@@ -24,7 +24,9 @@ they want changed. See [CONTRIBUTING.md](CONTRIBUTING.md) for the flow they foll
 
 To act on one:
 
-1. `gh pr checkout <number>` to get onto their branch.
+1. `gh pr checkout <number>` to get onto their branch. Most requests arrive from a fork,
+   so pushing back to it needs "Allow edits by maintainers" left on. If it is off, the
+   push is rejected: in that case open a second PR that closes theirs, and say why.
 2. Read their file in `pedidos/`, and ask Luca about anything ambiguous rather than
    guessing at content about the association or about a named person.
 3. Implement the change in `public/`, committing to that same branch, and push. The
