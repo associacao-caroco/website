@@ -1,0 +1,41 @@
+name: checks
+
+# No paths filter on purpose. A member's pull request touches only pedidos/, and a
+# filtered workflow would never report on it, which would make the check
+# impossible to satisfy if it is ever made a required one.
+on:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Structural checks
+        run: scripts/check
+
+      - name: Dashes in commit messages
+        # A warning, never a failure. CLAUDE.md extends the no dashes rule to
+        # commit messages, but a member writes theirs in the GitHub web UI and
+        # fixing one needs a force push they cannot do, and that would fight the
+        # rule against rewriting a member's branch. So this reports and moves on.
+        if: always()
+        run: |
+          base="origin/${{ github.base_ref }}"
+          if ! git rev-parse --verify --quiet "$base" >/dev/null; then
+            echo "no $base to compare against, skipping"
+            exit 0
+          fi
+          if git log --format=%s%n%b "$base..HEAD" | grep -nP '[\x{2012}-\x{2015}]'; then
+            {
+              echo "## Aviso, não bloqueia / Warning, non blocking"
+              echo
+              echo "- PT: uma mensagem de commit tem um travessão ou meia risca."
+              echo "  Sem problema para juntar o pull request, mas evite na próxima."
+              echo "- EN: a commit message contains an em-dash or en-dash."
+              echo "  Fine to merge, just avoid it next time."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

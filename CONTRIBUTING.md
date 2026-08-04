@@ -34,6 +34,14 @@ publicado poucos minutos depois. Se houver dúvidas, ficam no pull request.
 
 Pode responder e pedir correções antes do merge. É esse o objetivo de passar por aqui.
 
+## Verificações automáticas
+
+Vai ver no pull request um conjunto de verificações a correr. São nossas, verificam coisas
+como as duas línguas estarem em sincronia, e não têm nada a ver com o seu pedido: um
+pedido em `pedidos/` nunca as faz falhar. Se aparecer uma cruz vermelha depois de as
+alterações serem aplicadas, a explicação está na própria página do pull request, em
+português e em inglês, e é o Luca que a resolve.
+
 ## Fotografias e documentos
 
 Ficheiros grandes não se enviam bem pelo navegador. Envie-os por email para
@@ -78,6 +86,14 @@ updates within a few minutes. Any questions stay on the pull request.
 
 You can reply and ask for corrections before the merge. That is the point of going
 through here.
+
+## Automated checks
+
+You will see a set of checks running on the pull request. They are ours, they verify things
+like both languages staying in step, and they have nothing to do with your request: a file
+in `pedidos/` can never make them fail. If a red cross appears after the changes have been
+applied, the explanation is on the pull request page itself, in Portuguese and in English,
+and it is Luca's to sort out.
 
 ## Photos and documents
 

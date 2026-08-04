@@ -1,0 +1,17 @@
+#!/bin/sh
+# Structural checks for caroco.pt. Run this before opening a pull request.
+#
+#   scripts/check
+#
+# The same script runs on every pull request (see .github/workflows/checks.yml),
+# so anything it complains about here is what CI will complain about there.
+#
+# What it guards and why is documented in scripts/checks.py. In short: merging a
+# pull request publishes the site, and the mistakes worth catching are the ones
+# that look fine in the browser.
+set -eu
+
+cd "$(dirname "$0")/.."
+
+echo "caroco.pt"
+python3 scripts/checks.py
