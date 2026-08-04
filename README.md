@@ -14,6 +14,28 @@ merging a pull request, and merging is what publishes the site. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for how members request a change without touching any
 code, and [CLAUDE.md](CLAUDE.md) for the rules a Claude Code session follows here.
 
+## Checks
+
+```sh
+scripts/check
+```
+
+Standard library Python, no dependencies, about a second. The same script runs on every
+pull request, and when something fails the explanation appears on the pull request page in
+Portuguese and in English.
+
+It exists because merging is what publishes the site, there is no staging step, and the
+mistakes worth catching are the ones that look fine in the browser: a paragraph added in
+Portuguese but not English is hidden by the language toggle from everyone except an English
+visitor; a page created by copying another one can keep the source page's canonical tag and
+quietly tell Google it is a duplicate; an edit meant for all eight files that lands on
+seven leaves one page stale with no symptom.
+
+The four blocks that are duplicated across every page (the head asset lines, the language
+toggle, the tabs nav, the legal footer) have reference copies in `.github/blocks/`. The
+check asserts each one appears verbatim wherever it belongs, so drift is loud instead of
+silent. Changing a shared block means changing the reference and all eight files together.
+
 ## Formatting rule
 
 Never use em-dashes or en-dashes anywhere, in the site content or in commit messages.
@@ -26,8 +48,13 @@ wrangler.jsonc          Cloudflare config: serves public/ as static assets
 CONTRIBUTING.md         how members request changes, in PT and EN
 CLAUDE.md               working rules for Claude Code sessions in this repo
 pedidos/                change requests from members, one file per request
+scripts/
+  check                 run this before opening a pull request
+  checks.py             the checks themselves, standard library only
 .github/
   pull_request_template.md
+  workflows/checks.yml  runs scripts/check on every pull request
+  blocks/               reference copies of the four shared markup blocks
 public/
   index.html            /                  Inicio / Home
   missao.html           /missao            Missao / Mission

@@ -9,10 +9,11 @@ protection to be lifted for a one off change.
 The loop is:
 
 1. `git checkout -b <topic>` off an up to date `main`.
-2. Commit the change.
-3. `git push -u origin <topic>`.
-4. `gh pr create` with a description of what changed and why.
-5. Report the PR URL and stop. Luca reviews and merges.
+2. Make the change, then run `scripts/check` and fix anything it reports.
+3. Commit the change.
+4. `git push -u origin <topic>`.
+5. `gh pr create` with a description of what changed and why.
+6. Report the PR URL and stop. Luca reviews and merges.
 
 Pushing to `main` deploys to <https://caroco.pt> immediately, which is exactly why it is
 closed off.
@@ -50,6 +51,18 @@ These are load bearing, see [README.md](README.md) for the reasoning:
 - Do not rename the Worker in `wrangler.jsonc`.
 - Never touch the MX, SPF, DKIM, DMARC, `autoconfig`, or `autodiscover` DNS records.
 - No credentials in this repository. It is public.
+
+`scripts/check` enforces the first four of these mechanically, plus the canonical and
+`og:url` tags, internal links, and the sitemap. It runs on every pull request. Run it
+locally before pushing rather than discovering a failure afterwards.
+
+The four shared blocks (the head asset lines, the language toggle, the tabs nav, the legal
+footer) have reference copies in `.github/blocks/` and must appear verbatim in every page.
+Changing one of them means changing the reference and all eight files together, which is
+the point: an eight file edit that lands on seven files is otherwise silent.
+
+`pedidos/` is excluded from the dash check on purpose. A member's request file may contain
+anything and must never be edited.
 
 ## Verifying
 
