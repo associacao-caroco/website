@@ -42,3 +42,23 @@
     apply(preferred(), false);
   });
 })();
+
+/* Cloudflare Web Analytics.
+   Cookieless, no fingerprinting, no personal data, so the site needs no consent
+   banner and the legal footer stays as is.
+
+   It lives here rather than as a <script> tag pasted into all eight pages, so
+   there is one place to change it. The token is not a secret: it ships in the
+   HTML of every public page by design.
+
+   Previously this was Cloudflare's "automatic" edge injection, set to exclude EU
+   visitors, which meant that for a Portuguese association it recorded almost
+   nothing and failed silently. Installing the beacon here keeps it in version
+   control where a change is visible in a diff. */
+(function () {
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "b9f379bfe2c04b469ce2a2a8ae755188"}');
+  document.head.appendChild(s);
+})();
