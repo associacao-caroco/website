@@ -11,6 +11,7 @@ invariants these encode.
 Standard library only, by design. This repo has no dependencies and no build step.
 """
 
+import datetime
 import os
 import re
 import sys
@@ -35,11 +36,26 @@ DASH_SCOPE = [
     "public/sitemap.xml",
     "public/assets/site.css",
     "public/assets/site.js",
+    "public/assets/fonts/README.md",
     "README.md",
     "CLAUDE.md",
     "CONTRIBUTING.md",
     ".github/pull_request_template.md",
 ]
+
+# Hosts a page load is allowed to reach. Everything else must be served from this
+# repo. The fonts used to come from fonts.googleapis.com, which sent every
+# visitor's IP to Google before they had done anything, and contradicted the
+# argument in site.js that cookieless analytics need no consent banner. Adding a
+# host here should be a deliberate decision, visible in a diff.
+ALLOWED_ORIGINS = {
+    "caroco.pt",
+    "static.cloudflareinsights.com",  # the analytics beacon, see site.js
+}
+
+# Elements whose src or href causes a request when the page loads. A plain text
+# link is not one of these: it only reaches a third party if the visitor clicks it.
+LOADING_TAGS = r"link|script|img|source|iframe|video|audio|embed|object"
 
 # U+2012 figure dash, U+2013 en dash, U+2014 em dash, U+2015 horizontal bar, plus the HTML
 # entity spellings of the two that matter. Written as escapes so that this file, which
@@ -361,6 +377,173 @@ def check_sitemap(report):
             f"{missing} is a page on the site but does not appear in the navigation.",
         )
 
+    # lastmod is the one element Google actually reads out of a sitemap, and a
+    # malformed date makes it ignore the whole entry rather than complain.
+    for url in tree.getroot().iterfind(".//s:url", ns):
+        loc = url.find("s:loc", ns)
+        lastmod = url.find("s:lastmod", ns)
+        label = loc.text.strip() if loc is not None and loc.text else "?"
+        if lastmod is None or not (lastmod.text or "").strip():
+            report.fail(
+                "public/sitemap.xml",
+                f"{label} não tem <lastmod>.",
+                f"{label} has no <lastmod>.",
+            )
+            continue
+        value = lastmod.text.strip()
+        try:
+            datetime.date.fromisoformat(value[:10])
+        except ValueError:
+            report.fail(
+                "public/sitemap.xml",
+                f"<lastmod> de {label} é \"{value}\", que não é uma data. Use AAAA-MM-DD.",
+                f"the <lastmod> for {label} is \"{value}\", which is not a date. Use YYYY-MM-DD.",
+            )
+
+
+# ---------------------------------------------------------------- check 7
+
+
+def font_faces(css):
+    """Every @font-face block in site.css, as (src path, unicode-range text)."""
+    out = []
+    for block in re.findall(r"@font-face\s*\{(.*?)\}", css, re.S):
+        src = re.search(r"url\(\s*['\"]?([^'\")]+)", block)
+        rng = re.search(r"unicode-range:\s*([^;]+);", block)
+        out.append((src.group(1) if src else None, rng.group(1) if rng else None))
+    return out
+
+
+def parse_unicode_range(text):
+    """A CSS unicode-range value as a set of code points."""
+    points = set()
+    for part in text.split(","):
+        part = part.strip().upper().removeprefix("U+")
+        if not part:
+            continue
+        if "-" in part:
+            lo, hi = part.split("-", 1)
+            points.update(range(int(lo, 16), int(hi, 16) + 1))
+        elif "?" in part:
+            points.update(range(int(part.replace("?", "0"), 16), int(part.replace("?", "F"), 16) + 1))
+        else:
+            points.add(int(part, 16))
+    return points
+
+
+def check_fonts(report):
+    """The fonts are self hosted and subsetted to latin, which is enough for
+    Portuguese but is a real constraint, not an implementation detail: a character
+    outside the subset falls back to a system font mid word. And a woff2 path with
+    a typo does not error, it silently renders the whole site in Helvetica, which
+    is the kind of regression that looks like a design change."""
+    css_path = PUBLIC / "assets" / "site.css"
+    css = css_path.read_text(encoding="utf-8")
+    faces = font_faces(css)
+
+    if not faces:
+        report.fail(
+            "public/assets/site.css",
+            "não há nenhum bloco @font-face. As fontes são alojadas aqui, não no Google.",
+            "there is no @font-face block. The fonts are hosted here, not by Google.",
+        )
+        return
+
+    # Any url('/...') in the stylesheet, font or otherwise.
+    for ref in sorted(set(re.findall(r"url\(\s*['\"]?(/[^'\")]+)", css))):
+        if not (PUBLIC / ref.lstrip("/")).exists():
+            report.fail(
+                "public/assets/site.css",
+                f"o CSS pede {ref}, que não existe. Um caminho errado não dá erro, "
+                "o site passa a usar a fonte do sistema.",
+                f"the CSS asks for {ref}, which does not exist. A wrong path raises no "
+                "error, the site just falls back to a system font.",
+            )
+
+    if not (PUBLIC / "assets" / "fonts" / "OFL-Inter.txt").exists() or not (
+        PUBLIC / "assets" / "fonts" / "OFL-Poppins.txt"
+    ).exists():
+        report.fail(
+            "public/assets/fonts",
+            "falta um dos ficheiros de licença OFL. Redistribuir estas fontes obriga a "
+            "incluir o texto da licença.",
+            "one of the OFL licence files is missing. Redistributing these fonts requires "
+            "the licence text to travel with them.",
+        )
+
+    ranges = [r for _, r in faces if r]
+    if len(ranges) != len(faces):
+        report.fail(
+            "public/assets/site.css",
+            "há um @font-face sem unicode-range. Sem ele o browser descarrega a fonte "
+            "mesmo para páginas que não precisam dela.",
+            "there is an @font-face with no unicode-range. Without it the browser "
+            "downloads the font even for pages that do not need it.",
+        )
+
+    covered = set()
+    for rng in ranges:
+        covered |= parse_unicode_range(rng)
+
+    for name, text in pages():
+        outside = {ch for ch in text if ord(ch) not in covered}
+        if outside:
+            listing = ", ".join(f"{ch} (U+{ord(ch):04X})" for ch in sorted(outside))
+            report.fail(
+                f"public/{name}",
+                f"estes caracteres estão fora do subconjunto latino das fontes: {listing}. "
+                "Ou reescreva o texto, ou volte a buscar as fontes com um subconjunto maior "
+                "(ver public/assets/fonts/README.md).",
+                f"these characters fall outside the fonts' latin subset: {listing}. "
+                "Either reword the text, or refetch the fonts with a wider subset "
+                "(see public/assets/fonts/README.md).",
+            )
+
+
+# ---------------------------------------------------------------- check 8
+
+
+def check_no_third_party(report):
+    """Loading a font, script or image from another host tells that host the
+    visitor's IP address before the visitor has done anything. site.js argues that
+    no consent banner is needed because the analytics are cookieless; that argument
+    only holds while nothing else phones out. A text link a visitor may choose to
+    click is fine and is not counted here.
+
+    This reads the repository, not the running page: the beacon script itself then
+    posts to cloudflareinsights.com, which no source scan can see. That is the
+    reason to keep ALLOWED_ORIGINS short rather than to trust it as complete."""
+    sources = [(f"public/{n}", t) for n, t in pages()]
+
+    for where, text in sources:
+        for tag in re.findall(r"<(?:" + LOADING_TAGS + r")\b[^>]*>", text, re.I):
+            for ref in re.findall(r'(?:href|src)="([^"]+)"', tag):
+                host = re.match(r'(?:https?:)?//([^/]+)', ref)
+                if host and host.group(1) not in ALLOWED_ORIGINS:
+                    report.fail(
+                        where,
+                        f"esta página carrega algo de {host.group(1)}. Ponha o ficheiro em "
+                        "public/ e sirva-o daqui, ou acrescente o host a ALLOWED_ORIGINS "
+                        "em scripts/checks.py, deliberadamente.",
+                        f"this page loads something from {host.group(1)}. Put the file in "
+                        "public/ and serve it from here, or add the host to ALLOWED_ORIGINS "
+                        "in scripts/checks.py, deliberately.",
+                    )
+
+    js = (PUBLIC / "assets" / "site.js").read_text(encoding="utf-8")
+    loads = re.findall(r"""(?:\.src|\.href)\s*=\s*['"]([^'"]+)|(?:fetch|import)\(\s*['"]([^'"]+)""", js)
+    for a, b in loads:
+        ref = a or b
+        host = re.match(r'(?:https?:)?//([^/]+)', ref)
+        if host and host.group(1) not in ALLOWED_ORIGINS:
+            report.fail(
+                "public/assets/site.js",
+                f"o JavaScript carrega algo de {host.group(1)}, que não está em "
+                "ALLOWED_ORIGINS em scripts/checks.py.",
+                f"the JavaScript loads something from {host.group(1)}, which is not in "
+                "ALLOWED_ORIGINS in scripts/checks.py.",
+            )
+
 
 # ---------------------------------------------------------------- entry point
 
@@ -372,6 +555,8 @@ CHECKS = [
     ("identidade da página / page identity", check_page_identity),
     ("ligações / links", check_links),
     ("sitemap", check_sitemap),
+    ("fontes / fonts", check_fonts),
+    ("nada de terceiros / no third parties", check_no_third_party),
 ]
 
 
