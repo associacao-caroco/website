@@ -37,7 +37,7 @@ Pode responder e pedir correções antes do merge. É esse o objetivo de passar 
 ## Fotografias e documentos
 
 Ficheiros grandes não se enviam bem pelo navegador. Envie-os por email para
-<geral@caroco.pt> e refira no pedido que os enviou. Nunca coloque no repositório
+<info@caroco.pt> e refira no pedido que os enviou. Nunca coloque no repositório
 palavras-passe, tokens ou dados pessoais de terceiros: o repositório é público.
 
 ---
@@ -81,6 +81,6 @@ through here.
 
 ## Photos and documents
 
-Large files do not upload well through the browser. Email them to <geral@caroco.pt> and
+Large files do not upload well through the browser. Email them to <info@caroco.pt> and
 mention in the request that you have sent them. Never put passwords, tokens, or other
 people's personal data in the repository: it is public.
