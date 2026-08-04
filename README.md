@@ -7,6 +7,13 @@ Live at <https://caroco.pt>.
 
 Static HTML and CSS. No build step, no dependencies, no framework.
 
+## Changes go through pull requests
+
+`main` is protected. Nobody pushes to it, including maintainers: every change lands by
+merging a pull request, and merging is what publishes the site. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for how members request a change without touching any
+code, and [CLAUDE.md](CLAUDE.md) for the rules a Claude Code session follows here.
+
 ## Formatting rule
 
 Never use em-dashes or en-dashes anywhere, in the site content or in commit messages.
@@ -16,6 +23,11 @@ Use commas, colons, parentheses, or middle dots instead.
 
 ```
 wrangler.jsonc          Cloudflare config: serves public/ as static assets
+CONTRIBUTING.md         how members request changes, in PT and EN
+CLAUDE.md               working rules for Claude Code sessions in this repo
+pedidos/                change requests from members, one file per request
+.github/
+  pull_request_template.md
 public/
   index.html            /                  Inicio / Home
   missao.html           /missao            Missao / Mission
@@ -93,8 +105,9 @@ npx wrangler dev
 Cloudflare Workers static assets, Worker `old-waterfall-5b2c`, in Ana Teresa's Cloudflare
 account. The custom domain caroco.pt is attached to that Worker.
 
-Pushing to `main` triggers a rebuild and deploy through the Cloudflare git integration
-(Workers and Pages, `old-waterfall-5b2c`, Settings, Builds).
+A commit landing on `main` triggers a rebuild and deploy through the Cloudflare git
+integration (Workers and Pages, `old-waterfall-5b2c`, Settings, Builds). Since `main` is
+protected, in practice that means merging a pull request is what deploys.
 
 Manual deploy, if ever needed:
 
