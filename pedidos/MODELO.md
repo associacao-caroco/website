@@ -24,8 +24,8 @@ Paste the new text here if you have it. Portuguese, English, or both.
 
 ## Imagens / Images
 
-Nomes dos ficheiros enviados por email para geral@caroco.pt, se houver.
-Names of files emailed to geral@caroco.pt, if any.
+Nomes dos ficheiros enviados por email para info@caroco.pt, se houver.
+Names of files emailed to info@caroco.pt, if any.
 
 ## Prazo / Deadline
 
