@@ -54,7 +54,7 @@ scripts/
 .github/
   pull_request_template.md
   workflows/checks.yml  runs scripts/check on every pull request
-  blocks/               reference copies of the four shared markup blocks
+  blocks/               reference copies of the five shared markup blocks
 public/
   index.html            /                  Inicio / Home
   missao.html           /missao            Missao / Mission
@@ -66,13 +66,18 @@ public/
   404.html
   robots.txt
   sitemap.xml
+  favicon.ico           16, 32 and 48 px, requested unconditionally by crawlers
   assets/
     caroco-mark.png     logo
+    apple-touch-icon.png  180x180, opaque: iOS composites transparency to black
+    icon-192.png        192x192, for Android home screens
+    og-caroco.jpg       1200x630 card shown when a link is shared
     oliveiras.jpg       photo, olive trees regrowing after fire
     gardunha.jpg        photo, geodesic marker on the Gardunha
     team-*.jpg          portraits for the team section on /orgaos-sociais
     site.css            all styling
     site.js             PT/EN language toggle
+    fonts/              Inter and Poppins, self hosted, see fonts/README.md
 ```
 
 Cloudflare resolves `/missao` to `missao.html` automatically, so URLs stay extensionless.
@@ -100,6 +105,19 @@ per member. Portraits are square JPEGs, roughly 500 to 760 px, displayed at 108 
 circle and rendered grayscale by CSS, so colour originals are fine. Keep them square, or
 the circle crops unevenly. Alexandra Belo and Vitor Mingacho share one entry, as in the
 source material.
+
+**Fonts.** Inter and Poppins are served from `public/assets/fonts/`, not from
+`fonts.googleapis.com`. Two reasons. Requesting a stylesheet from Google sends every
+visitor's IP address to Google before the visitor has done anything, which is the transfer
+a Munich court found unlawful without consent in 2022, and it contradicted the note in
+`site.js` arguing that no consent banner is needed because the analytics are cookieless.
+And the Google stylesheet only declared Inter 400 and 500, so all 26 `<strong>` elements
+on the site were faux bolded by the browser rather than rendered in a real 600.
+
+The files are the latin subset only, which covers Portuguese but is a constraint rather
+than an implementation detail: a character outside it falls back to a system font mid word.
+`scripts/check` enforces that. `public/assets/fonts/README.md` records the exact upstream
+URLs, the versions, and how to refetch them.
 
 **Legal footer.** Every page carries the association's legal details (name, NIPC, CAE,
 registered office, contact email). Google for Nonprofits requires the organisation
