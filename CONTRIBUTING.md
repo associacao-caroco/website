@@ -1,0 +1,80 @@
+# Como propor alterações ao site
+
+Nada vai para o site diretamente. O `main` está protegido: toda a alteração passa por um
+pull request e só é publicada quando o Luca o aprova e faz merge. O merge é o que dispara
+a publicação em <https://caroco.pt>.
+
+Não é preciso saber programar. Basta descrever o que quer mudar.
+
+## Pedir uma alteração
+
+Tudo pelo site do GitHub, no navegador:
+
+1. Abra <https://github.com/associacao-caroco/website/tree/main/pedidos>.
+2. Clique em **Add file**, depois em **Create new file**.
+3. Dê ao ficheiro um nome com data e assunto, por exemplo
+   `pedidos/20260815-noticia-residencia.md`.
+4. Escreva o pedido. Use o modelo em [`pedidos/MODELO.md`](pedidos/MODELO.md) como guia.
+   Diga em que página, o que deve mudar, e o texto novo se já o tiver. Português ou
+   inglês, tanto faz: o site é bilingue e a tradução é feita depois.
+5. Em baixo, escolha **Create a new branch for this commit and start a pull request** e
+   clique em **Propose new file**.
+6. Na página seguinte, clique em **Create pull request**.
+
+Está feito. O pedido fica registado como pull request e recebe resposta aí.
+
+## O que acontece depois
+
+O Luca pega no mesmo pull request, aplica as alterações no site (HTML, CSS, imagens) no
+mesmo branch, e volta a comentar. Se estiver conforme o pedido, faz merge e o site é
+publicado poucos minutos depois. Se houver dúvidas, ficam no pull request.
+
+Pode responder e pedir correções antes do merge. É esse o objetivo de passar por aqui.
+
+## Fotografias e documentos
+
+Ficheiros grandes não se enviam bem pelo navegador. Envie-os por email para
+<geral@caroco.pt> e refira no pedido que os enviou. Nunca coloque no repositório
+palavras-passe, tokens ou dados pessoais de terceiros: o repositório é público.
+
+---
+
+# How to propose changes to the site
+
+Nothing goes live directly. `main` is protected: every change goes through a pull request
+and is published only once Luca approves it and merges. The merge is what triggers a
+deploy to <https://caroco.pt>.
+
+You do not need to write code. Describing the change is enough.
+
+## Requesting a change
+
+All of this happens on the GitHub website, in your browser:
+
+1. Open <https://github.com/associacao-caroco/website/tree/main/pedidos>.
+2. Click **Add file**, then **Create new file**.
+3. Name the file with a date and a subject, for example
+   `pedidos/20260815-noticia-residencia.md`.
+4. Write the request, using [`pedidos/MODELO.md`](pedidos/MODELO.md) as a guide. Say
+   which page, what should change, and the new text if you already have it. Portuguese or
+   English is fine: the site is bilingual and translation happens later.
+5. At the bottom, choose **Create a new branch for this commit and start a pull request**
+   and click **Propose new file**.
+6. On the next screen, click **Create pull request**.
+
+That is all. The request now exists as a pull request and gets answered there.
+
+## What happens next
+
+Luca takes that same pull request, applies the actual site changes (HTML, CSS, images) on
+the same branch, and comments back. If it matches the request, he merges and the site
+updates within a few minutes. Any questions stay on the pull request.
+
+You can reply and ask for corrections before the merge. That is the point of going
+through here.
+
+## Photos and documents
+
+Large files do not upload well through the browser. Email them to <geral@caroco.pt> and
+mention in the request that you have sent them. Never put passwords, tokens, or other
+people's personal data in the repository: it is public.
