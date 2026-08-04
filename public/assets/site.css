@@ -1,8 +1,10 @@
 :root {
-  --paper: #f0e9d6;
+  --paper: #faf9f6;
   --ink: #1a1612;
   --ink-quiet: #7a715f;
   --rule: rgba(26, 22, 18, 0.18);
+  --font-title: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -11,9 +13,8 @@ html, body {
   margin: 0; padding: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Fraunces', Georgia, serif;
-  font-weight: 300;
-  font-variation-settings: 'opsz' 14;
+  font-family: var(--font-body);
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -22,10 +23,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  line-height: 1.55;
-  background-image:
-    radial-gradient(ellipse at top left, rgba(0,0,0,0.025), transparent 60%),
-    radial-gradient(ellipse at bottom right, rgba(0,0,0,0.03), transparent 60%);
+  line-height: 1.6;
 }
 
 /* Language toggle */
@@ -35,11 +33,12 @@ body {
   z-index: 10;
   display: flex;
   gap: 2px;
-  font-family: 'Fraunces', serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: rgba(240, 233, 214, 0.85);
+  background: rgba(250, 249, 246, 0.85);
   backdrop-filter: blur(8px);
   border: 1px solid var(--rule);
   border-radius: 100px;
@@ -86,13 +85,13 @@ body.home .mark {
 }
 
 .wordmark {
-  font-weight: 400;
-  font-variation-settings: 'opsz' 144;
+  font-family: var(--font-title);
+  font-weight: 500;
   font-size: clamp(1.05rem, 2.4vw, 1.3rem);
-  letter-spacing: 0.32em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   text-align: center;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.6rem;
 }
 .wordmark a {
   color: inherit;
@@ -102,11 +101,11 @@ body.home .mark {
 
 .place {
   font-style: italic;
-  font-size: 0.95rem;
+  font-weight: 400;
+  font-size: 1.0625rem;
   color: var(--ink-quiet);
   text-align: center;
   margin: 0 0 2rem;
-  font-weight: 300;
 }
 body.home .place { margin-bottom: 3rem; }
 
@@ -115,16 +114,17 @@ body.home .place { margin-bottom: 3rem; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.2rem 1.4rem;
+  gap: 0.3rem 1.3rem;
   max-width: 620px;
   margin: 0 auto 3rem;
-  font-size: 0.74rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  font-weight: 400;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
-  padding: 0.85rem 0;
+  padding: 0.9rem 0;
   width: 100%;
 }
 .tabs a {
@@ -152,10 +152,9 @@ body.home .place { margin-bottom: 3rem; }
 }
 
 .lede {
-  font-weight: 300;
-  font-variation-settings: 'opsz' 36;
-  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
-  line-height: 1.45;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
   max-width: 34ch;
   margin: 0 auto 4rem;
   text-align: center;
@@ -163,18 +162,18 @@ body.home .place { margin-bottom: 3rem; }
 
 /* Page title on inner pages */
 .page-title {
-  font-weight: 400;
-  font-variation-settings: 'opsz' 144;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  letter-spacing: 0.02em;
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: clamp(2.125rem, 7.5vw, 3.875rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
   text-align: center;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.4rem;
 }
 .page-intro {
-  font-weight: 300;
-  font-variation-settings: 'opsz' 36;
-  font-size: 1.08rem;
-  line-height: 1.55;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
   max-width: 46ch;
   margin: 0 auto 3.5rem;
   text-align: center;
@@ -188,9 +187,9 @@ section.block {
 }
 
 h2 {
-  font-weight: 400;
-  font-variation-settings: 'opsz' 144;
-  font-size: 0.72rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.75rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--ink-quiet);
@@ -199,17 +198,16 @@ h2 {
 }
 
 h3 {
+  font-family: var(--font-title);
   font-weight: 500;
-  font-variation-settings: 'opsz' 40;
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
-  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  margin: 0 0 0.4rem;
 }
 
 .prose p {
-  font-weight: 300;
-  font-variation-settings: 'opsz' 24;
-  font-size: 1.02rem;
+  font-weight: 400;
+  font-size: 1.1875rem;
   line-height: 1.6;
   margin: 0 0 1.1rem;
   text-align: left;
@@ -224,10 +222,9 @@ h3 {
   gap: 1rem;
 }
 .mission-list li {
-  font-weight: 300;
-  font-variation-settings: 'opsz' 24;
-  font-size: 1.02rem;
-  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.6;
   padding-left: 1.5rem;
   position: relative;
   text-align: left;
@@ -235,7 +232,7 @@ h3 {
 .mission-list li::before {
   content: "";
   position: absolute;
-  left: 0; top: 0.6em;
+  left: 0; top: 0.65em;
   width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--ink);
@@ -252,18 +249,17 @@ h3 {
 .activities li { text-align: left; }
 .activities .term {
   display: block;
+  font-family: var(--font-title);
   font-weight: 500;
-  font-variation-settings: 'opsz' 40;
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.15rem;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
 }
 .activities .desc {
   display: block;
-  font-weight: 300;
-  font-variation-settings: 'opsz' 24;
-  font-size: 0.98rem;
-  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.6;
   color: var(--ink);
 }
 
@@ -278,9 +274,8 @@ h3 {
 .programme > li { text-align: left; }
 .programme .desc {
   display: block;
-  font-weight: 300;
-  font-variation-settings: 'opsz' 24;
-  font-size: 0.98rem;
+  font-weight: 400;
+  font-size: 1.1875rem;
   line-height: 1.6;
   margin-bottom: 0.7rem;
 }
@@ -290,8 +285,8 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  font-size: 0.92rem;
-  line-height: 1.5;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   color: var(--ink);
 }
 .detail li {
@@ -301,14 +296,15 @@ h3 {
 .detail li::before {
   content: "";
   position: absolute;
-  left: 0; top: 0.62em;
+  left: 0; top: 0.72em;
   width: 4px; height: 1px;
   background: var(--ink);
   opacity: 0.5;
 }
 .status {
   display: inline-block;
-  font-size: 0.66rem;
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-quiet);
@@ -334,17 +330,17 @@ h3 {
   column-gap: 1.5rem;
   row-gap: 0.5rem;
   margin: 0.8rem 0 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 .roles dt {
   color: var(--ink-quiet);
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-size: 0.68rem;
-  padding-top: 0.28rem;
+  font-size: 0.7rem;
+  padding-top: 0.4rem;
 }
 .roles dd { margin: 0; }
 
@@ -375,12 +371,15 @@ h3 {
 }
 .person-name {
   margin: 0;
-  font-size: 1.06rem;
-  font-weight: 400;
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  font-weight: 500;
 }
 .person-role {
-  margin: 0.3rem 0 0;
-  font-size: 0.68rem;
+  margin: 0.35rem 0 0;
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-quiet);
@@ -388,14 +387,14 @@ h3 {
 }
 .person-bio {
   margin: 0.75rem 0 0;
-  font-weight: 300;
-  font-size: 0.95rem;
+  font-weight: 400;
+  font-size: 1.0625rem;
   line-height: 1.6;
 }
 .person-link {
   margin: 0.5rem 0 0;
-  font-size: 0.84rem;
-  font-weight: 300;
+  font-size: 0.9375rem;
+  font-weight: 400;
 }
 
 figure {
@@ -411,17 +410,17 @@ figure img {
 }
 figcaption {
   font-style: italic;
-  font-size: 0.82rem;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   color: var(--ink-quiet);
   margin-top: 0.85rem;
   text-align: center;
-  font-weight: 300;
 }
 
 .recent-body {
-  font-weight: 300;
-  font-variation-settings: 'opsz' 24;
-  font-size: 1.02rem;
+  font-weight: 400;
+  font-size: 1.1875rem;
   line-height: 1.6;
   text-align: center;
   max-width: 46ch;
@@ -430,6 +429,7 @@ figcaption {
 .recent-tag {
   display: inline-block;
   font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-quiet);
@@ -452,7 +452,8 @@ figcaption {
 .news > li { text-align: left; }
 .news .date {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-quiet);
@@ -460,9 +461,8 @@ figcaption {
 }
 .news .body {
   display: block;
-  font-weight: 300;
-  font-variation-settings: 'opsz' 24;
-  font-size: 0.98rem;
+  font-weight: 400;
+  font-size: 1.1875rem;
   line-height: 1.6;
 }
 
@@ -471,13 +471,13 @@ figcaption {
   justify-content: center;
   gap: 1.4rem;
   flex-wrap: wrap;
-  font-size: 0.78rem;
-  letter-spacing: 0.22em;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-quiet);
   margin: 0 auto 4rem;
   max-width: 480px;
-  font-weight: 400;
 }
 .practices span { white-space: nowrap; }
 
@@ -507,17 +507,17 @@ figcaption {
   column-gap: 1.5rem;
   row-gap: 0.65rem;
   margin: 0;
-  font-size: 0.86rem;
-  line-height: 1.5;
-  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 .ledger dt {
   color: var(--ink-quiet);
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 0.7rem;
-  padding-top: 0.22rem;
+  padding-top: 0.35rem;
 }
 .ledger dd { margin: 0; color: var(--ink); }
 .ledger a {
@@ -536,15 +536,15 @@ footer {
   width: 100%;
   margin: 4rem auto 0;
   padding: 2rem 32px 3rem;
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
   color: var(--ink-quiet);
   text-align: center;
-  font-weight: 400;
   border-top: 1px solid var(--rule);
 }
 .footer-legal {
-  letter-spacing: 0.06em;
-  line-height: 1.7;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
   margin: 0 0 0.9rem;
 }
 .footer-legal a {
@@ -571,9 +571,9 @@ footer {
   .mark { margin-bottom: 1.2rem; }
   body.home .mark { margin-bottom: 2.5rem; }
   .place, .rule { margin-bottom: 2rem; }
-  .tabs { gap: 0.2rem 1rem; font-size: 0.68rem; letter-spacing: 0.14em; margin-bottom: 2.5rem; }
+  .tabs { gap: 0.3rem 1rem; font-size: 0.875rem; letter-spacing: 0.05em; margin-bottom: 2.5rem; }
   .lede, figure, .practices, section.block { margin-bottom: 3rem; }
-  .practices { gap: 1rem; font-size: 0.7rem; }
+  .practices { gap: 1rem; font-size: 0.72rem; letter-spacing: 0.16em; }
   .ledger dl, .roles { grid-template-columns: 1fr; row-gap: 0.2rem; }
   .ledger dt, .roles dt { padding-top: 0.7rem; }
   .ledger dt:first-of-type, .roles dt:first-of-type { padding-top: 0; }
