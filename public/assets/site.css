@@ -100,6 +100,42 @@ a, a:visited { color: var(--ink); }
   border-radius: 2px;
 }
 
+/* <main> carries tabindex="-1" purely so the skip link can move focus into it, which
+   some browsers will not do for a target that is not focusable by itself. It is not a
+   control, and a ring drawn around the whole content column is noise rather than an
+   affordance, so it is the one exception to the rule above. */
+main:focus, main:focus-visible { outline: none; }
+
+/* Skip link.
+   ---------
+   The document starts with two language buttons and then a seven link nav, so
+   reaching the actual content of any page cost nine presses of Tab. This is the
+   first focusable thing in every page and it jumps straight to <main>.
+
+   Moved out of view rather than hidden: display: none and visibility: hidden both
+   take an element out of the focus order, which would make it unreachable and so
+   pointless. :focus rather than :focus-visible, because a link that is invisible
+   until focused has to appear for every way of focusing it. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  z-index: 10;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: 0 0 4px 4px;
+  padding: 0.6rem 1.1rem;
+}
+.skip-link:focus {
+  transform: translate(-50%, 0);
+}
+
 /* Inter is a variable font here, so this is a real 600 rather than the browser
    smearing a 500 into a fake bold. The default 'bolder' would land on 700, which
    is heavier than this page wants. */
@@ -143,15 +179,31 @@ strong { font-weight: 600; }
   color: var(--paper);
 }
 
-main {
-  flex: 1;
+/* The masthead and the content share one column.
+   -----------------------------------------------
+   These used to be a single <main> holding the mark, the wordmark and the seven link
+   nav as well as the content. That put the site wide navigation inside <main>, which
+   is specified to hold what is unique to the document, and it made the skip link
+   nearly pointless: #main landed above the nav, so it saved two tab stops out of ten
+   rather than all ten.
+
+   Splitting them has to leave the geometry alone, so the box is shared and only the
+   vertical padding is divided: the top belongs to the header, the bottom to main.
+   They stack with no margin between them, so the totals are unchanged. */
+header, main {
   max-width: 640px;
   width: 100%;
   margin: 0 auto;
-  padding: 6vh 32px 4vh;
+  padding-left: 32px;
+  padding-right: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+header { padding-top: 6vh; }
+main {
+  flex: 1;
+  padding-bottom: 4vh;
 }
 
 /* Masthead */
@@ -267,6 +319,16 @@ section.block {
   margin: 0 auto 4rem;
 }
 
+/* h2 is a small uppercase section label, h3 is a large item title. Those are two
+   different looks, and the page markup used to pick a level to get a look: the
+   five entries on /noticias went h1 straight to h3 with no h2 in between, and the
+   four programmes on /o-que-fazemos sat at h3 above the first h2 on the page, so
+   a screen reader's outline filed the flagship programmes underneath a heading
+   that comes after them.
+
+   .item-title carries the second look, so the level can follow the document
+   instead of the design. It is used on h2 elements, which means the five label
+   declarations above have to be undone rather than merely omitted. */
 h2 {
   font-family: var(--font-body);
   font-weight: 500;
@@ -278,12 +340,18 @@ h2 {
   text-align: center;
 }
 
-h3 {
+h3, .item-title {
   font-family: var(--font-title);
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.35;
   margin: 0 0 0.4rem;
+}
+.item-title {
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ink);
+  text-align: left;
 }
 
 .prose p {
@@ -632,7 +700,9 @@ footer {
 [data-lang="pt"] .en { display: none; }
 
 @media (max-width: 480px) {
-  main { padding: 7vh 24px 2vh; }
+  header, main { padding-left: 24px; padding-right: 24px; }
+  header { padding-top: 7vh; }
+  main { padding-bottom: 2vh; }
   .mark { margin-bottom: 1.2rem; }
   body.home .mark { margin-bottom: 2.5rem; }
   .place, .rule { margin-bottom: 2rem; }

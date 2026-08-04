@@ -81,6 +81,7 @@ DASH_ENTITY = re.compile(r"&(?:mdash|ndash);|&#(?:8211|8212);|&#x201[34];", re.I
 # every page except 404.html.
 SHARED_BLOCKS = [
     ("head-assets.html", "all"),
+    ("skip-link.html", "all"),
     ("lang-nav.html", "all"),
     ("tabs-nav.html", "all"),
     ("footer.html", "all"),
@@ -330,6 +331,22 @@ def check_links(report):
                     f"(procurei {rel(resolved)}).",
                     f"the link {target} does not match any file "
                     f"(looked for {rel(resolved)}).",
+                )
+
+    # A link to #something has to land on an id that exists on the same page. The
+    # skip link is the reason this matters: it is the first thing a keyboard
+    # visitor reaches on all eight pages, and if its target is gone it silently
+    # does nothing at all, which is worse than not having one.
+    for name, text in pages():
+        ids = set(re.findall(r'\bid="([^"]+)"', text))
+        for frag in re.findall(r'href="#([^"]+)"', text):
+            if frag not in ids:
+                report.fail(
+                    f"public/{name}",
+                    f"a ligação #{frag} não corresponde a nenhum id nesta página. "
+                    f'Ou o destino perdeu o seu id="{frag}", ou a ligação está mal escrita.',
+                    f"the link #{frag} matches no id on this page. Either the target "
+                    f'lost its id="{frag}", or the link is misspelled.',
                 )
 
     # And the reverse: a page nobody links to is a page nobody finds.
