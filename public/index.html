@@ -62,13 +62,15 @@
 </head>
 <body class="home">
 
+  <a class="skip-link" href="#main"><span class="pt">Saltar para o conteúdo</span><span class="en">Skip to content</span></a>
+
   <nav class="lang" aria-label="Idioma / Language">
     <button id="btn-pt" aria-pressed="true" onclick="setLang('pt')">PT</button>
     <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
   </nav>
 
-  <main>
-    <img class="mark" src="/assets/caroco-mark.png" alt="Associação Caroço" width="220" height="220" />
+  <header>
+    <img class="mark" src="/assets/caroco-mark.png" alt="" width="220" height="220" />
 
     <h1 class="wordmark">Associação&nbsp;&nbsp;Caroço</h1>
 
@@ -85,7 +87,9 @@
     </nav>
 
     <hr class="rule" aria-hidden="true" />
+  </header>
 
+  <main id="main" tabindex="-1">
     <p class="lede">
       <span class="pt">Associação cultural sem fins lucrativos sediada em Lavacolhos, no interior de Portugal, dedicada à promoção artística interdisciplinar, articulando arte, antropologia, ciência e memória local.</span>
       <span class="en">A non-profit cultural association based in Lavacolhos, in the interior of Portugal, dedicated to interdisciplinary artistic practice that brings together art, anthropology, science, and local memory.</span>

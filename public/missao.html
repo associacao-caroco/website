@@ -62,13 +62,15 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main"><span class="pt">Saltar para o conteúdo</span><span class="en">Skip to content</span></a>
+
   <nav class="lang" aria-label="Idioma / Language">
     <button id="btn-pt" aria-pressed="true" onclick="setLang('pt')">PT</button>
     <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
   </nav>
 
-  <main>
-    <img class="mark" src="/assets/caroco-mark.png" alt="Associação Caroço" width="124" height="124" />
+  <header>
+    <img class="mark" src="/assets/caroco-mark.png" alt="" width="124" height="124" />
 
     <p class="wordmark"><a href="/">Associação&nbsp;&nbsp;Caroço</a></p>
 
@@ -83,7 +85,9 @@
       <a href="/noticias"><span class="pt">Notícias</span><span class="en">News</span></a>
       <a href="/contactos"><span class="pt">Contactos</span><span class="en">Contact</span></a>
     </nav>
+  </header>
 
+  <main id="main" tabindex="-1">
     <h1 class="page-title"><span class="pt">A nossa missão</span><span class="en">Our mission</span></h1>
 
     <p class="page-intro">

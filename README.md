@@ -31,10 +31,13 @@ visitor; a page created by copying another one can keep the source page's canoni
 quietly tell Google it is a duplicate; an edit meant for all eight files that lands on
 seven leaves one page stale with no symptom.
 
-The four blocks that are duplicated across every page (the head asset lines, the language
-toggle, the tabs nav, the legal footer) have reference copies in `.github/blocks/`. The
-check asserts each one appears verbatim wherever it belongs, so drift is loud instead of
-silent. Changing a shared block means changing the reference and all eight files together.
+Six blocks are duplicated across the pages (the head asset lines, the social and structured
+data block, the skip link, the language toggle, the tabs nav, the legal footer) and have
+reference copies in `.github/blocks/`. The check asserts each one appears verbatim wherever
+it belongs, so drift is loud instead of silent. Five belong on all eight files; the social
+and structured data block belongs on the seven indexable pages only, since `404.html` is
+`noindex`. Changing a shared block means changing the reference and all eight files
+together.
 
 ## Formatting rule
 
@@ -54,7 +57,7 @@ scripts/
 .github/
   pull_request_template.md
   workflows/checks.yml  runs scripts/check on every pull request
-  blocks/               reference copies of the five shared markup blocks
+  blocks/               reference copies of the six shared markup blocks
 public/
   index.html            /                  Inicio / Home
   missao.html           /missao            Missao / Mission
@@ -99,6 +102,26 @@ edit both languages together, or one of them silently goes stale.
 design, so the links exist in the served HTML rather than being injected by JavaScript.
 Changing the nav means editing all eight files. Only the `aria-current="page"` attribute
 differs between them: it sits on the tab matching the current page.
+
+**Page structure.** Every page is `<nav class="lang">`, then `<header>` holding the mark,
+the wordmark, the place line and the tabs nav, then `<main id="main">` holding what is
+unique to that page, then `<footer>`. The two used to be one `<main>` wrapping everything,
+which put the site wide nav inside the landmark meant for per page content and left the
+skip link jumping to a point above the nav rather than past it. `header` and `main` share
+one CSS box and split the vertical padding between them, so moving markup across the
+boundary changes the spacing. Keep the `id="main"` and the `tabindex="-1"` on `<main>`:
+the skip link targets the first and needs the second to move focus in some browsers.
+`scripts/check` fails if any `href="#..."` on a page has no matching `id`.
+
+**Headings.** `h2` is a small uppercase centred label, `h3` is a large left aligned item
+title. Those are two different looks, and the pages used to pick a level to get a look:
+`/noticias` went `h1` straight to five `h3` with no `h2` at all, and the four programmes on
+`/o-que-fazemos` sat at `h3` above the first `h2` on the page, so a screen reader's outline
+filed the flagship programmes underneath a heading that comes after them.
+
+Use `class="item-title"` to get the large title look at whatever level the document
+actually needs, and let the level follow the structure. Never pick a heading level for its
+appearance.
 
 **Team portraits.** `/orgaos-sociais` lists the governing bodies and then a profile
 per member. Portraits are grayscale JPEGs with a 260 px short side, displayed at 108 px in

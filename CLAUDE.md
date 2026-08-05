@@ -56,10 +56,12 @@ These are load bearing, see [README.md](README.md) for the reasoning:
 `og:url` tags, internal links, and the sitemap. It runs on every pull request. Run it
 locally before pushing rather than discovering a failure afterwards.
 
-The four shared blocks (the head asset lines, the language toggle, the tabs nav, the legal
-footer) have reference copies in `.github/blocks/` and must appear verbatim in every page.
-Changing one of them means changing the reference and all eight files together, which is
-the point: an eight file edit that lands on seven files is otherwise silent.
+Six shared blocks have reference copies in `.github/blocks/` and must appear verbatim in
+every page they belong to: the head asset lines, the social and structured data block
+(seven indexable pages only, `404.html` is `noindex`), the skip link, the language toggle,
+the tabs nav, and the legal footer. Changing one of them means changing the reference and
+all eight files together, which is the point: an eight file edit that lands on seven files
+is otherwise silent.
 
 `pedidos/` is excluded from the dash check on purpose. A member's request file may contain
 anything and must never be edited.
