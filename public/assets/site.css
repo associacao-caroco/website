@@ -597,20 +597,21 @@ figcaption {
   line-height: 1.6;
 }
 
-.practices {
-  display: flex;
-  justify-content: center;
-  gap: 1.4rem;
-  flex-wrap: wrap;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+/* The closing line on the home and mission pages. It used to be four uppercase
+   words with wide letter-spacing, one per field of practice. It is a sentence
+   now, so the spacing and the uppercase are gone: at that tracking a whole
+   sentence reads as a wall, and nowrap on the spans would have stopped it
+   wrapping at all. */
+.tagline {
+  font-size: 1.0625rem;
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: balance;
   color: var(--ink-quiet);
   margin: 0 auto 4rem;
-  max-width: 480px;
+  max-width: 34rem;
 }
-.practices span { white-space: nowrap; }
 
 /* Inline links inside body copy.
    .page-intro and .person-link are here because they were missing: those links
@@ -707,8 +708,8 @@ footer {
   body.home .mark { margin-bottom: 2.5rem; }
   .place, .rule { margin-bottom: 2rem; }
   .tabs { gap: 0.3rem 1rem; font-size: 0.875rem; letter-spacing: 0.05em; margin-bottom: 2.5rem; }
-  .lede, figure, .practices, section.block { margin-bottom: 3rem; }
-  .practices { gap: 1rem; font-size: 0.72rem; letter-spacing: 0.16em; }
+  .lede, figure, .tagline, section.block { margin-bottom: 3rem; }
+  .tagline { font-size: 1rem; }
   .ledger dl, .roles { grid-template-columns: 1fr; row-gap: 0.2rem; }
   .ledger dt, .roles dt { padding-top: 0.7rem; }
   .ledger dt:first-of-type, .roles dt:first-of-type { padding-top: 0; }
@@ -719,7 +720,7 @@ footer {
 @media (prefers-reduced-motion: no-preference) {
   .mark { animation: scale-in 1.1s cubic-bezier(0.2,0.7,0.2,1) both; }
   .wordmark, .place, .tabs, .rule, .lede, .page-title, .page-intro,
-  .practices, .ledger, figure, section.block {
+  .tagline, .ledger, figure, section.block {
     animation: fade-up 0.9s cubic-bezier(0.2,0.6,0.2,1) both;
   }
   /* The masthead keeps its stagger, shortened so it still reads as a sequence.
