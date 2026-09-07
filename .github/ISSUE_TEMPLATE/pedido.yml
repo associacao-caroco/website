@@ -92,7 +92,7 @@ body:
         AAAA-MM-DD. Se puder ir para o site logo que esteja pronta, deixe em branco.
         If the change must not become visible before a certain date. Use the format
         YYYY-MM-DD. If it can go live as soon as it is ready, leave this empty.
-      placeholder: 2026-10-15
+      placeholder: "2026-10-15"
     validations:
       required: false
 

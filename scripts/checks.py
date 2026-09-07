@@ -674,6 +674,75 @@ def check_images(report):
 # ---------------------------------------------------------------- entry point
 
 
+# --------------------------------------------------------------- check 10
+
+
+# Keys in an issue form that legitimately hold a boolean. Everything else in
+# these files is a string, and GitHub rejects the whole form if it is not.
+ISSUE_FORM_BOOLEANS = {"required", "blank_issues_enabled"}
+
+# Values YAML resolves to something other than a string when they are unquoted.
+YAML_COERCED = re.compile(
+    r"""^(
+        \d{4}-\d{2}-\d{2}(?:[Tt ][\d:.+\-Zz]+)?   # a date or a timestamp
+      | [-+]?\d[\d_]*(?:\.\d*)?(?:[eE][-+]?\d+)?  # a number
+      | [-+]?\.(?:inf|Inf|INF)|\.(?:nan|NaN|NAN)     # infinity, not a number
+      | true|True|TRUE|false|False|FALSE
+      | yes|Yes|YES|no|No|NO|on|On|ON|off|Off|OFF
+      | null|Null|NULL|~
+    )$""",
+    re.VERBOSE,
+)
+
+KEY_VALUE = re.compile(r"^(\s*)(?:-\s+)?([A-Za-z_][\w-]*):[ \t]+(\S.*?)\s*$")
+LIST_ITEM = re.compile(r"^(\s*)-[ \t]+(\S.*?)\s*$")
+BLOCK_SCALAR = re.compile(r":\s*[|>][-+]?\d*\s*$")
+
+
+def check_issue_forms(report):
+    """An issue form is dropped whole, and silently, if any value has the wrong
+    type. GitHub reads these files from the default branch only, so the form
+    simply stops appearing on the new issue page and nothing says why. A
+    placeholder written as 2026-10-15 is the way in: YAML reads it as a date,
+    not as a string, and the form disappears. Quote it."""
+    for target in sorted(t for t in DASH_SCOPE if t.startswith(".github/ISSUE_TEMPLATE/")):
+        path = ROOT / target
+        if not path.exists():
+            continue
+        block_indent = None
+        for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            indent = len(line) - len(line.lstrip())
+            if block_indent is not None:
+                # Inside a | or > block every line is literal text, not YAML.
+                if not line.strip() or indent > block_indent:
+                    continue
+                block_indent = None
+            if BLOCK_SCALAR.search(line):
+                block_indent = indent
+                continue
+            match = KEY_VALUE.match(line)
+            if match:
+                key, value = match.group(2), match.group(3)
+                if key in ISSUE_FORM_BOOLEANS:
+                    continue
+            else:
+                match = LIST_ITEM.match(line)
+                if not match or ": " in match.group(2):
+                    continue
+                key, value = "-", match.group(2)
+            if value[0] in "\"'[{#&*":
+                continue
+            if not YAML_COERCED.match(value):
+                continue
+            report.fail(
+                f"{target}:{lineno}",
+                f"{key}: {value} não é uma string para o YAML. "
+                "Ponha aspas, senão o GitHub rejeita o formulário inteiro sem avisar.",
+                f"{key}: {value} is not a string to YAML. "
+                "Quote it, or GitHub drops the whole form with no error.",
+            )
+
+
 CHECKS = [
     ("línguas / languages", check_span_parity),
     ("travessões / dashes", check_dashes),
@@ -684,6 +753,7 @@ CHECKS = [
     ("fontes / fonts", check_fonts),
     ("nada de terceiros / no third parties", check_no_third_party),
     ("imagens / images", check_images),
+    ("formularios / issue forms", check_issue_forms),
 ]
 
 
