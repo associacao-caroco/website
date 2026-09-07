@@ -1,0 +1,91 @@
+name: Pedido de alteração / Change request
+description: Pedir uma alteração ao site caroco.pt / Ask for a change to the caroco.pt site
+title: "Pedido: "
+labels: ["pedido"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Não é preciso saber programar. Preencha o que souber e deixe o resto em branco.
+        Português ou inglês, tanto faz: o site é bilingue e a tradução é feita depois.
+        Fotografias e documentos não se enviam por aqui. Envie-os por email para
+        info@caroco.pt e escreva os nomes dos ficheiros mais abaixo.
+
+        You do not need to write code. Fill in what you know and leave the rest empty.
+        Portuguese or English is fine: the site is bilingual and translation happens
+        afterwards. Photos and documents are not uploaded here. Email them to
+        info@caroco.pt and write the file names further down.
+
+  - type: dropdown
+    id: pagina
+    attributes:
+      label: Página / Page
+      description: Em que página entra a alteração. / Which page the change belongs on.
+      options:
+        - Início / Home
+        - Missão / Mission
+        - O que fazemos / What we do
+        - O lugar / The place
+        - Órgãos sociais / Governance
+        - Notícias / News
+        - Contactos / Contact
+        - Página nova / New page
+        - Não sei / I do not know
+    validations:
+      required: true
+
+  - type: textarea
+    id: o-que-mudar
+    attributes:
+      label: O que mudar / What to change
+      description: >-
+        Descreva a alteração. Se for para substituir texto, diga qual é o texto atual.
+        Describe the change. If text is being replaced, say which text is there now.
+      placeholder: |
+        Na página Notícias, o segundo parágrafo diz "..." e devia dizer "...".
+        On the News page, the second paragraph says "..." and should say "...".
+    validations:
+      required: true
+
+  - type: textarea
+    id: texto-novo
+    attributes:
+      label: Texto novo / New text
+      description: >-
+        Cole aqui o texto novo, se já o tiver. Português, inglês, ou ambos.
+        Paste the new text here if you have it. Portuguese, English, or both.
+    validations:
+      required: false
+
+  - type: input
+    id: imagens
+    attributes:
+      label: Imagens / Images
+      description: >-
+        Nomes dos ficheiros enviados por email para info@caroco.pt, se houver.
+        Names of files emailed to info@caroco.pt, if any.
+      placeholder: residencia-2026-01.jpg, residencia-2026-02.jpg
+    validations:
+      required: false
+
+  - type: input
+    id: prazo
+    attributes:
+      label: Prazo / Deadline
+      description: >-
+        Se houver uma data a cumprir. Se não houver, deixe em branco.
+        If there is a date to meet. If there is none, leave this empty.
+      placeholder: 15 de outubro de 2026 / 15 October 2026
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: dados
+    attributes:
+      label: Confirmação / Confirmation
+      options:
+        - label: >-
+            Este pedido não contém palavras-passe, tokens, nem dados pessoais de
+            terceiros. Este repositório é público. / This request contains no passwords,
+            no tokens, and no other people's personal data. This repository is public.
+          required: true

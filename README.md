@@ -10,9 +10,14 @@ Static HTML and CSS. No build step, no dependencies, no framework.
 ## Changes go through pull requests
 
 `main` is protected. Nobody pushes to it, including maintainers: every change lands by
-merging a pull request, and merging is what publishes the site. See
-[CONTRIBUTING.md](CONTRIBUTING.md) for how members request a change without touching any
-code, and [CLAUDE.md](CLAUDE.md) for the rules a Claude Code session follows here.
+merging a pull request, and merging is what publishes the site.
+
+Members do not open the pull request. They fill in an issue form
+(`.github/ISSUE_TEMPLATE/pedido.yml`) describing what they want changed, and the pull
+request that implements it closes that issue. One request had to be transcribed by hand
+after filing it through the browser failed, which is why the intake is a form rather than
+a fork and a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md) for the flow members
+follow, and [CLAUDE.md](CLAUDE.md) for the rules a Claude Code session follows here.
 
 ## Checks
 
@@ -50,11 +55,14 @@ Use commas, colons, parentheses, or middle dots instead.
 wrangler.jsonc          Cloudflare config: serves public/ as static assets
 CONTRIBUTING.md         how members request changes, in PT and EN
 CLAUDE.md               working rules for Claude Code sessions in this repo
-pedidos/                change requests from members, one file per request
+pedidos/                change requests received before the issue form, one file each
 scripts/
   check                 run this before opening a pull request
   checks.py             the checks themselves, standard library only
 .github/
+  ISSUE_TEMPLATE/
+    pedido.yml          the change request form members fill in
+    config.yml          issue chooser: keeps blank issues, links the email route
   pull_request_template.md
   workflows/checks.yml  runs scripts/check on every pull request
   blocks/               reference copies of the six shared markup blocks

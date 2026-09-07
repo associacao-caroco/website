@@ -41,6 +41,8 @@ DASH_SCOPE = [
     "CLAUDE.md",
     "CONTRIBUTING.md",
     ".github/pull_request_template.md",
+    ".github/ISSUE_TEMPLATE/pedido.yml",
+    ".github/ISSUE_TEMPLATE/config.yml",
 ]
 
 # Hosts a page load is allowed to reach. Everything else must be served from this

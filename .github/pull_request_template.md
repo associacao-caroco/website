@@ -1,9 +1,14 @@
 <!--
-Pedido de alteração? Descreva-o abaixo. Não precisa de mexer em HTML.
+Pedido de alteração? Não é aqui. Abra um pedido, não é preciso mexer em HTML:
+https://github.com/associacao-caroco/website/issues/new?template=pedido.yml
 Ver CONTRIBUTING.md.
 
-Requesting a change? Describe it below. You do not need to touch any HTML.
+Requesting a change? Not here. Open a request, no HTML needed:
+https://github.com/associacao-caroco/website/issues/new?template=pedido.yml
 See CONTRIBUTING.md.
+
+Este pull request implementa um pedido? Acrescente "Closes #<n>".
+Does this pull request implement a request? Add "Closes #<n>".
 -->
 
 ## O que muda / What changes

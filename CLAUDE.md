@@ -20,23 +20,24 @@ closed off.
 
 ## Picking up a change request from an association member
 
-Members open a pull request containing only a text file under `pedidos/`, describing what
-they want changed. See [CONTRIBUTING.md](CONTRIBUTING.md) for the flow they follow.
+Members open an issue built from the form in `.github/ISSUE_TEMPLATE/pedido.yml`, which
+carries the `pedido` label. See [CONTRIBUTING.md](CONTRIBUTING.md) for the flow they
+follow. A request that arrives by email is filed here as an issue by Luca, so an issue is
+always the record.
 
 To act on one:
 
-1. `gh pr checkout <number>` to get onto their branch. Most requests arrive from a fork,
-   so pushing back to it needs "Allow edits by maintainers" left on. If it is off, the
-   push is rejected: in that case open a second PR that closes theirs, and say why.
-2. Read their file in `pedidos/`, and ask Luca about anything ambiguous rather than
+1. `gh issue view <number>` to read it, and ask Luca about anything ambiguous rather than
    guessing at content about the association or about a named person.
-3. Implement the change in `public/`, committing to that same branch, and push. The
-   request file stays in the branch as the record of what was asked.
-4. Comment on the pull request summarising what was implemented and anything left open.
-5. Stop. Luca approves and merges.
+2. `git checkout -b <topic>` off an up to date `main`.
+3. Implement the change in `public/`, then run `scripts/check`.
+4. `gh pr create` with `Closes #<number>` in the description, so merging the pull request
+   closes the request.
+5. Comment on the issue summarising what was implemented and anything left open.
+6. Stop. Luca approves and merges.
 
-Never edit a member's request text to match what was built. If the implementation had to
-deviate, say so in the pull request comment.
+Never edit a member's request text to match what was built. That means the issue body
+stays as they wrote it. If the implementation had to deviate, say so in the comment.
 
 ## Content invariants
 
@@ -63,8 +64,9 @@ the tabs nav, and the legal footer. Changing one of them means changing the refe
 all eight files together, which is the point: an eight file edit that lands on seven files
 is otherwise silent.
 
-`pedidos/` is excluded from the dash check on purpose. A member's request file may contain
-anything and must never be edited.
+`pedidos/` holds the requests that arrived before the issue form existed, one file per
+request. Nothing new is filed there. It is excluded from the dash check on purpose: a
+member's request file may contain anything and must never be edited.
 
 ## Verifying
 
