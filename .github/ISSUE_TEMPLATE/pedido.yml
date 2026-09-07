@@ -32,7 +32,8 @@ body:
         - Notícias / News
         - Contactos / Contact
         - Página nova / New page
-        - Não sei / I do not know
+        - Várias / Various
+        - Não aplicável / Not applicable
     validations:
       required: true
 
@@ -76,9 +77,22 @@ body:
     attributes:
       label: Prazo / Deadline
       description: >-
-        Se houver uma data a cumprir. Se não houver, deixe em branco.
-        If there is a date to meet. If there is none, leave this empty.
+        Até quando o pedido tem de estar feito, se houver uma data a cumprir.
+        By when the request has to be done, if there is a date to meet.
       placeholder: 15 de outubro de 2026 / 15 October 2026
+    validations:
+      required: false
+
+  - type: input
+    id: data-publicacao
+    attributes:
+      label: Data de publicação / Publication date
+      description: >-
+        Se a alteração não puder ficar visível antes de uma data. Escreva no formato
+        AAAA-MM-DD. Se puder ir para o site logo que esteja pronta, deixe em branco.
+        If the change must not become visible before a certain date. Use the format
+        YYYY-MM-DD. If it can go live as soon as it is ready, leave this empty.
+      placeholder: 2026-10-15
     validations:
       required: false
 
