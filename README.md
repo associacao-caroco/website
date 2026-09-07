@@ -17,8 +17,7 @@ Members do not open the pull request. They fill in an issue form
 request that implements it closes that issue. One request had to be transcribed by hand
 after filing it through the browser failed, which is why the intake is a form rather than
 a fork and a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md) for the flow members
-follow,
-and [CLAUDE.md](CLAUDE.md) for the rules a Claude Code session follows here.
+follow, and [CLAUDE.md](CLAUDE.md) for the rules a Claude Code session follows here.
 
 ## Checks
 
