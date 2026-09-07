@@ -37,9 +37,13 @@ ao que pediu, isso é dito no comentário, não corrigido no seu texto.
 
 ## Fotografias e documentos
 
-Ficheiros grandes não se enviam bem pelo navegador. Envie-os por email para
-<info@caroco.pt> e escreva os nomes dos ficheiros no pedido. Nunca coloque no repositório
-palavras-passe, tokens ou dados pessoais de terceiros: o repositório é público.
+Arraste as fotografias para dentro de um campo de texto do formulário. O limite é 10 MB
+por imagem e 25 MB para outros ficheiros. Se um ficheiro for maior, envie-o por email para
+<info@caroco.pt> e escreva o nome no pedido.
+
+O repositório é público, e um ficheiro enviado no pedido fica acessível a qualquer pessoa
+que tenha o link. Nunca coloque no pedido palavras-passe, tokens ou dados pessoais de
+terceiros.
 
 Se não tiver conta GitHub, ou se o formulário não servir, envie o pedido por email para
 <info@caroco.pt>. O Luca registá-lo-á aqui.
@@ -87,9 +91,12 @@ from what you asked, that is said in a comment, not corrected in your words.
 
 ## Photos and documents
 
-Large files do not upload well through the browser. Email them to <info@caroco.pt> and
-write the file names in the request. Never put passwords, tokens, or other people's
-personal data in the repository: it is public.
+Drag photos into any text field on the form. The limit is 10 MB per image and 25 MB for
+other files. If a file is larger, email it to <info@caroco.pt> and write its name in the
+request.
+
+The repository is public, and a file uploaded in a request is accessible to anybody with
+the link. Never put passwords, tokens, or other people's personal data in a request.
 
 If you have no GitHub account, or the form does not fit, email the request to
 <info@caroco.pt>. Luca will file it here.

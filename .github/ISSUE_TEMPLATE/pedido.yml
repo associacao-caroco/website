@@ -8,13 +8,15 @@ body:
       value: |
         Não é preciso saber programar. Preencha o que souber e deixe o resto em branco.
         Português ou inglês, tanto faz: o site é bilingue e a tradução é feita depois.
-        Fotografias e documentos não se enviam por aqui. Envie-os por email para
-        info@caroco.pt e escreva os nomes dos ficheiros mais abaixo.
+        Fotografias arrastam-se para dentro de um campo de texto: até 10 MB por imagem,
+        25 MB para outros ficheiros. Este repositório é público, e um ficheiro enviado
+        aqui fica acessível a quem tenha o link.
 
         You do not need to write code. Fill in what you know and leave the rest empty.
         Portuguese or English is fine: the site is bilingual and translation happens
-        afterwards. Photos and documents are not uploaded here. Email them to
-        info@caroco.pt and write the file names further down.
+        afterwards. Drag photos into any text field: up to 10 MB per image, 25 MB for
+        other files. This repository is public, and a file uploaded here is accessible
+        to anybody with the link.
 
   - type: dropdown
     id: pagina
@@ -58,12 +60,13 @@ body:
       required: false
 
   - type: input
-    id: imagens
+    id: ficheiros-grandes
     attributes:
-      label: Imagens / Images
+      label: Ficheiros grandes / Large files
       description: >-
-        Nomes dos ficheiros enviados por email para info@caroco.pt, se houver.
-        Names of files emailed to info@caroco.pt, if any.
+        Só para ficheiros que passem do limite. Envie-os por email para info@caroco.pt e
+        escreva aqui os nomes. Only for files over the limit. Email them to
+        info@caroco.pt and write their names here.
       placeholder: residencia-2026-01.jpg, residencia-2026-02.jpg
     validations:
       required: false
