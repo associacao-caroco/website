@@ -195,6 +195,12 @@ A commit landing on `main` triggers a rebuild and deploy through the Cloudflare 
 integration (Workers and Pages, `old-waterfall-5b2c`, Settings, Builds). Since `main` is
 protected, in practice that means merging a pull request is what deploys.
 
+A pull request gets its own preview of the whole site at
+`https://<branch-name>-old-waterfall-5b2c.anateresavicente.workers.dev`, built from the
+branch. The link is in the build check summary on the pull request page. It needs no
+login, so treat it as public: a change waiting on a publication date is readable there
+before that date by anybody who has the link.
+
 Manual deploy, if ever needed:
 
 ```sh
