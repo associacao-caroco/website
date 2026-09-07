@@ -36,6 +36,10 @@ To act on one:
 5. Comment on the issue summarising what was implemented and anything left open.
 6. Stop. Luca approves and merges.
 
+If the issue gives a publication date, repeat it at the top of the pull request
+description. Merging publishes the change, so a pull request that must not go live yet
+waits, and Luca decides when it merges.
+
 Never edit a member's request text to match what was built. That means the issue body
 stays as they wrote it. If the implementation had to deviate, say so in the comment.
 
