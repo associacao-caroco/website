@@ -77,9 +77,10 @@ body:
     attributes:
       label: Prazo / Deadline
       description: >-
-        Até quando o pedido tem de estar feito, se houver uma data a cumprir.
-        By when the request has to be done, if there is a date to meet.
-      placeholder: 15 de outubro de 2026 / 15 October 2026
+        Até quando o pedido tem de estar feito, se houver uma data a cumprir. Escreva no
+        formato AAAA-MM-DD. By when the request has to be done, if there is a date to
+        meet. Use the format YYYY-MM-DD.
+      placeholder: "2026-10-15"
     validations:
       required: false
 
