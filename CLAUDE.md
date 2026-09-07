@@ -33,12 +33,27 @@ To act on one:
 3. Implement the change in `public/`, then run `scripts/check`.
 4. `gh pr create` with `Closes #<number>` in the description, so merging the pull request
    closes the request.
-5. Comment on the issue summarising what was implemented and anything left open.
+5. Comment on the issue summarising what was implemented and anything left open, and
+   paste the preview link so the member can see the change before it is published.
 6. Stop. Luca approves and merges.
 
+Every pull request gets a preview of the whole site at
+
+```
+https://<branch-name>-old-waterfall-5b2c.anateresavicente.workers.dev
+```
+
+Cloudflare Workers Builds creates it, and the same link is in the build check summary on
+the pull request page. A member will not find it there, which is why step 5 pastes it into
+the issue. The preview serves the real pages and resolves extensionless URLs, so `/missao`
+works on it.
+
+That link needs no login. Anybody who has it sees the page.
+
 If the issue gives a publication date, repeat it at the top of the pull request
-description. Merging publishes the change, so a pull request that must not go live yet
-waits, and Luca decides when it merges.
+description, and say in the issue comment that the preview link is public, so the member
+knows not to pass it on before the date. Merging publishes the change, so a pull request
+that must not go live yet waits, and Luca decides when it merges.
 
 Never edit a member's request text to match what was built. That means the issue body
 stays as they wrote it. If the implementation had to deviate, say so in the comment.
