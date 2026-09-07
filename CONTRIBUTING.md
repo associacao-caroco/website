@@ -11,8 +11,9 @@ num formulário.
 
 1. Abra
    <https://github.com/associacao-caroco/website/issues/new?template=pedido.yml>.
-2. Preencha o formulário. Diga em que página, o que deve mudar, e o texto novo se já o
-   tiver. Português ou inglês, tanto faz: o site é bilingue e a tradução é feita depois.
+2. Preencha o formulário. Diga em que página e o que deve mudar, incluindo o texto novo
+   se já o tiver. Português ou inglês, tanto faz: o site é bilingue e a tradução é feita
+   depois.
 3. Clique em **Create**.
 
 Está feito. Precisa de uma conta GitHub, que é gratuita. Só isso: não há ficheiros para
@@ -63,9 +64,9 @@ change on a form is enough.
 
 1. Open
    <https://github.com/associacao-caroco/website/issues/new?template=pedido.yml>.
-2. Fill in the form. Say which page, what should change, and the new text if you already
-   have it. Portuguese or English is fine: the site is bilingual and translation happens
-   later.
+2. Fill in the form. Say which page and what should change, including the new text if
+   you already have it. Portuguese or English is fine: the site is bilingual and
+   translation happens later.
 3. Click **Create**.
 
 That is all. You need a GitHub account, which is free. Nothing else: there is no file to

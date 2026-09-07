@@ -42,35 +42,27 @@ body:
     attributes:
       label: O que mudar / What to change
       description: >-
-        Descreva a alteração. Se for para substituir texto, diga qual é o texto atual.
-        Describe the change. If text is being replaced, say which text is there now.
+        Descreva a alteração. Se for para substituir texto, diga qual é o texto atual, e
+        escreva aqui o texto novo se já o tiver. Describe the change. If text is being
+        replaced, say which text is there now, and write the new text here if you have
+        it.
       placeholder: |
         Na página Notícias, o segundo parágrafo diz "..." e devia dizer "...".
         On the News page, the second paragraph says "..." and should say "...".
     validations:
       required: true
 
-  - type: textarea
-    id: texto-novo
-    attributes:
-      label: Texto novo / New text
-      description: >-
-        Cole aqui o texto novo, se já o tiver. Português, inglês, ou ambos.
-        Paste the new text here if you have it. Portuguese, English, or both.
-    validations:
-      required: false
-
-  - type: input
+  - type: checkboxes
     id: ficheiros-grandes
     attributes:
       label: Ficheiros grandes / Large files
       description: >-
-        Só para ficheiros que passem do limite. Envie-os por email para info@caroco.pt e
-        escreva aqui os nomes. Only for files over the limit. Email them to
-        info@caroco.pt and write their names here.
-      placeholder: residencia-2026-01.jpg, residencia-2026-02.jpg
-    validations:
-      required: false
+        Só se algum ficheiro passar do limite do formulário. Only if a file is over the
+        limit of the form.
+      options:
+        - label: >-
+            Enviei um email para info@caroco.pt com ficheiros para este pedido.
+            I have emailed info@caroco.pt with files for this request.
 
   - type: input
     id: prazo
