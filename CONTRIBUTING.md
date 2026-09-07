@@ -4,49 +4,45 @@ Nada vai para o site diretamente. O `main` está protegido: toda a alteração p
 pull request e só é publicada quando o Luca o aprova e faz merge. O merge é o que dispara
 a publicação em <https://caroco.pt>.
 
-Não é preciso saber programar. Basta descrever o que quer mudar.
+Não é preciso saber programar, nem abrir um pull request. Basta descrever o que quer mudar
+num formulário.
 
 ## Pedir uma alteração
 
-Tudo pelo site do GitHub, no navegador:
+1. Abra
+   <https://github.com/associacao-caroco/website/issues/new?template=pedido.yml>.
+2. Preencha o formulário. Diga em que página, o que deve mudar, e o texto novo se já o
+   tiver. Português ou inglês, tanto faz: o site é bilingue e a tradução é feita depois.
+3. Clique em **Create**.
 
-1. Abra <https://github.com/associacao-caroco/website/tree/main/pedidos>.
-2. Clique em **Add file**, depois em **Create new file**.
-3. Dê ao ficheiro um nome com data e assunto, por exemplo
-   `pedidos/20260815-noticia-residencia.md`.
-4. Escreva o pedido. Use o modelo em [`pedidos/MODELO.md`](pedidos/MODELO.md) como guia.
-   Diga em que página, o que deve mudar, e o texto novo se já o tiver. Português ou
-   inglês, tanto faz: o site é bilingue e a tradução é feita depois.
-5. Em baixo, clique em **Propose new file**. Se o GitHub avisar que vai criar uma cópia
-   (fork) do repositório na sua conta, aceite: é normal e é assim que funciona para quem
-   não tem permissão de escrita.
-6. Na página seguinte, clique em **Create pull request**, e outra vez para confirmar.
-   Deixe a opção **Allow edits by maintainers** marcada, é o que permite aplicar as
-   alterações no seu pedido.
+Está feito. Precisa de uma conta GitHub, que é gratuita. Só isso: não há ficheiros para
+criar, nem cópia do repositório para aceitar.
 
-Está feito. O pedido fica registado como pull request e recebe resposta aí.
+Preencha o que souber e deixe o resto em branco. Um pedido incompleto é melhor do que
+nenhum, e as perguntas que faltarem são feitas no próprio pedido.
 
 ## O que acontece depois
 
-O Luca pega no mesmo pull request, aplica as alterações no site (HTML, CSS, imagens) no
-mesmo branch, e volta a comentar. Se estiver conforme o pedido, faz merge e o site é
-publicado poucos minutos depois. Se houver dúvidas, ficam no pull request.
+O pedido fica registado como issue e recebe resposta aí.
+
+O Luca aplica as alterações no site (HTML, CSS, imagens) num pull request que aponta para
+o seu pedido, e volta a comentar. Se estiver conforme o pedido, faz merge, o site é
+publicado poucos minutos depois, e o seu pedido fecha-se sozinho. Se houver dúvidas,
+ficam no pedido.
 
 Pode responder e pedir correções antes do merge. É esse o objetivo de passar por aqui.
 
-## Verificações automáticas
-
-Vai ver no pull request um conjunto de verificações a correr. São nossas, verificam coisas
-como as duas línguas estarem em sincronia, e não têm nada a ver com o seu pedido: um
-pedido em `pedidos/` nunca as faz falhar. Se aparecer uma cruz vermelha depois de as
-alterações serem aplicadas, a explicação está na própria página do pull request, em
-português e em inglês, e é o Luca que a resolve.
+O texto do seu pedido não é alterado por ninguém. Se a alteração aplicada tiver de fugir
+ao que pediu, isso é dito no comentário, não corrigido no seu texto.
 
 ## Fotografias e documentos
 
 Ficheiros grandes não se enviam bem pelo navegador. Envie-os por email para
-<info@caroco.pt> e refira no pedido que os enviou. Nunca coloque no repositório
+<info@caroco.pt> e escreva os nomes dos ficheiros no pedido. Nunca coloque no repositório
 palavras-passe, tokens ou dados pessoais de terceiros: o repositório é público.
+
+Se não tiver conta GitHub, ou se o formulário não servir, envie o pedido por email para
+<info@caroco.pt>. O Luca registá-lo-á aqui.
 
 ---
 
@@ -56,47 +52,44 @@ Nothing goes live directly. `main` is protected: every change goes through a pul
 and is published only once Luca approves it and merges. The merge is what triggers a
 deploy to <https://caroco.pt>.
 
-You do not need to write code. Describing the change is enough.
+You do not need to write code, and you do not need to open a pull request. Describing the
+change on a form is enough.
 
 ## Requesting a change
 
-All of this happens on the GitHub website, in your browser:
+1. Open
+   <https://github.com/associacao-caroco/website/issues/new?template=pedido.yml>.
+2. Fill in the form. Say which page, what should change, and the new text if you already
+   have it. Portuguese or English is fine: the site is bilingual and translation happens
+   later.
+3. Click **Create**.
 
-1. Open <https://github.com/associacao-caroco/website/tree/main/pedidos>.
-2. Click **Add file**, then **Create new file**.
-3. Name the file with a date and a subject, for example
-   `pedidos/20260815-noticia-residencia.md`.
-4. Write the request, using [`pedidos/MODELO.md`](pedidos/MODELO.md) as a guide. Say
-   which page, what should change, and the new text if you already have it. Portuguese or
-   English is fine: the site is bilingual and translation happens later.
-5. At the bottom, click **Propose new file**. If GitHub warns that it will create a copy
-   (a fork) of the repository under your account, accept it: that is normal for anyone
-   without write access.
-6. On the next screen, click **Create pull request**, then again to confirm. Leave
-   **Allow edits by maintainers** ticked, that is what lets the changes be applied to your
-   request.
+That is all. You need a GitHub account, which is free. Nothing else: there is no file to
+create and no copy of the repository to accept.
 
-That is all. The request now exists as a pull request and gets answered there.
+Fill in what you know and leave the rest empty. An incomplete request beats no request,
+and anything missing gets asked on the request itself.
 
 ## What happens next
 
-Luca takes that same pull request, applies the actual site changes (HTML, CSS, images) on
-the same branch, and comments back. If it matches the request, he merges and the site
-updates within a few minutes. Any questions stay on the pull request.
+The request now exists as an issue and gets answered there.
+
+Luca applies the actual site changes (HTML, CSS, images) in a pull request that points
+back at your request, and comments back. If it matches the request, he merges, the site
+updates within a few minutes, and your request closes itself. Any questions stay on the
+request.
 
 You can reply and ask for corrections before the merge. That is the point of going
 through here.
 
-## Automated checks
-
-You will see a set of checks running on the pull request. They are ours, they verify things
-like both languages staying in step, and they have nothing to do with your request: a file
-in `pedidos/` can never make them fail. If a red cross appears after the changes have been
-applied, the explanation is on the pull request page itself, in Portuguese and in English,
-and it is Luca's to sort out.
+Nobody edits the text of your request. If the change that gets applied had to deviate
+from what you asked, that is said in a comment, not corrected in your words.
 
 ## Photos and documents
 
 Large files do not upload well through the browser. Email them to <info@caroco.pt> and
-mention in the request that you have sent them. Never put passwords, tokens, or other
-people's personal data in the repository: it is public.
+write the file names in the request. Never put passwords, tokens, or other people's
+personal data in the repository: it is public.
+
+If you have no GitHub account, or the form does not fit, email the request to
+<info@caroco.pt>. Luca will file it here.

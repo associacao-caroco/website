@@ -1,5 +1,14 @@
 # Modelo de pedido de alteração / Change request template
 
+Este modelo foi substituído pelo formulário em
+<https://github.com/associacao-caroco/website/issues/new?template=pedido.yml>, que faz as
+mesmas perguntas. Fica aqui como registo. Ver [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+This template was replaced by the form at
+<https://github.com/associacao-caroco/website/issues/new?template=pedido.yml>, which asks
+the same questions. It is kept here as a record. See
+[CONTRIBUTING.md](../CONTRIBUTING.md).
+
 Copie o texto abaixo para o seu ficheiro novo em `pedidos/` e preencha. Apague as linhas
 que não se aplicam. Ver [CONTRIBUTING.md](../CONTRIBUTING.md) para os passos.
 
